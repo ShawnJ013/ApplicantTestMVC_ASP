@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ApplicantTestMVC.Models.user>
+
+
+@{
+    ViewBag.Title = "Users";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Users</h2>
+
+
+<div>
+    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addUserModal">Add User</button>
+</div>
+<br />
+@if (ViewBag.ErrorMsg != null)
+{
+    <h4 style="color:red;font-size:1.5em;">Error: @ViewBag.ErrorMsg</h4>
+}
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.userName)</td>
+            <td>@Html.DisplayFor(modelItem => item.address)</td>
+        </tr>
+    }
+
+</table>
+
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="addUserLabel">Add User</h4>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("AddUser", "Home", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="col-md-12"><label for="name">Name:</label></div>
+                            <div class="col-md-12"><input id="name" name="name" /></div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="col-md-12"><label for="address">Complete Address:</label></div>
+                            <div class="col-md-12"><input id="address" name="address" /></div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <input type="submit" id="createFacImage" value="Add" class="btn btn-default" style="margin-top:20px;" />
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+

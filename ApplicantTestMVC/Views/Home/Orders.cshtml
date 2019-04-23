@@ -1,0 +1,31 @@
+﻿@model  IEnumerable<ApplicantTestMVC.Models.order>
+
+@{
+    ViewBag.Title = "Orders";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Orders</h2>
+
+
+@if (ViewBag.ErrorMsg != null)
+{
+    <h4 style="color:red;font-size:1.5em;">Error: @ViewBag.ErrorMsg</h4>
+}
+<table class="table" style="margin-top:10px;">
+    <tr>
+        <th>Order Number</th>
+        <th>Order Created Date</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td><a href="@Url.Action("OrderDetails", "Home", new { id=item.order_id })"></a></td>
+
+            <td>@Html.DisplayFor(modelItem => item.order_id)</td>
+            <td>@Html.DisplayFor(modelItem => item.date_created)</td>
+        </tr>
+    }
+
+</table>

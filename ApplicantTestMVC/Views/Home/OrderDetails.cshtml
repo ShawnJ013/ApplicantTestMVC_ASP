@@ -1,0 +1,74 @@
+﻿@model ApplicantTestMVC.ViewModels.OrderVM
+@{
+    ViewBag.Title = "OrderDetails";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .lineTitle {
+        font-weight: bold;
+    }
+
+    .lineData {
+        padding-left: 10px;
+    }
+</style>
+
+<div>
+    <h2>Order</h2>
+    <table>
+        <tr>
+            <td class="lineTitle">Order Number:</td>
+            <td class="lineData">@Model.order.order_id</td>
+        </tr>
+        <tr>
+            <td class="lineTitle">Order Total:</td>
+            <td class="lineData">$ @ViewBag.TotalCost</td>
+        </tr>
+        <tr>
+            <td class="lineTitle">Order Qty:</td>
+            <td class="lineData">@ViewBag.TotalQty</td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <h2>Bill To:</h2>
+    <address>
+        @Model.user.userName<br />
+        @Model.user.address<br />
+        @if (Model.user.address != null)
+        {
+            @Model.user.address <br />
+        }
+        @*@Model.address.city, @Model.address.state @Model.address.postcode*@
+    </address>
+</div>
+
+<div>
+    <table style="width:100%;">
+        <tr>
+            <th style="width:20%">Description</th>
+            <th style="width:20%">Qty</th>
+            <th style="width:20%">Units</th>
+            <th style="width:20%">Unit Cost</th>
+            <th style="width:20%">Total Cost</th>
+        </tr>
+        @foreach (var item in Model.line_items)
+        {
+            decimal totalCost = item.unit.cost * item.qty;
+            <tr>
+           
+                <td>@item.stock.description</td>
+                <td>@item.qty</td>
+                <td>@item.unit.name</td>
+                <td>$ @item.unit.cost</td>
+                <td>$ @totalCost</td>
+            </tr>
+
+
+        }
+    </table>
+</div>
+
+
